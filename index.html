@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Serviços profissionais e produtos selecionados em um só lugar.">
+  <title>S.O.S Filtros | Serviços e Produtos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sos-theme.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="S.O.S Filtros - início"><img src="logo-sos-small.png" alt="S.O.S Filtros"><strong id="brandName">S.O.S Filtros</strong></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav id="mainNav" aria-label="Navegação principal">
+      <a href="#inicio">Início</a><a href="#catalogo">Catálogo</a><a href="#contato">Contato</a><a href="#avaliar">Avaliar</a>
+    </nav>
+    <button class="cart-button" id="openCart" aria-label="Abrir carrinho">Carrinho <span id="cartCount">0</span></button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">SERVIÇOS & PRODUTOS</p>
+        <h1 id="heroTitle">Soluções que transformam ideias em resultados.</h1>
+        <p id="heroSubtitle">Serviços especializados e produtos selecionados para tornar seu próximo projeto mais simples, rápido e marcante.</p>
+        <div class="hero-actions"><a class="btn primary" href="#catalogo">Explorar catálogo</a><a class="btn ghost" href="#contato">Falar com especialista</a></div>
+        <div class="trust"><span>✓ Atendimento personalizado</span><span>✓ Compra segura</span><span>✓ Suporte dedicado</span></div>
+      </div>
+      <div class="hero-art reveal" aria-hidden="true"><div class="glow"></div><div class="card-float one"><b id="customerCount">+1.500</b><span>clientes atendidos</span></div><div class="card-float two"><b><span id="ratingValue">4.9</span> ★</b><span>avaliação média</span></div><div class="hero-logo-float"><img src="logo-sos-small.png" alt=""></div></div>
+    </section>
+
+    <section class="section" id="catalogo">
+      <div class="section-heading reveal"><div><p class="eyebrow">ESCOLHA O IDEAL PARA VOCÊ</p><h2>Nosso catálogo</h2></div><div class="filters" role="group" aria-label="Filtrar catálogo"><button class="active" data-filter="todos">Todos</button><button data-filter="servico">Serviços</button><button data-filter="produto">Produtos</button></div></div>
+      <div class="catalog-grid" id="catalogGrid"></div>
+    </section>
+
+    <section class="section contact" id="contato">
+      <div class="contact-copy reveal"><p class="eyebrow">VAMOS CONVERSAR?</p><h2>Conte sua ideia.<br><em>Nós cuidamos do resto.</em></h2><p>Envie uma mensagem e receba um atendimento personalizado.</p><a class="whatsapp-link" id="whatsappLink" href="#" target="_blank" rel="noopener">Conversar pelo WhatsApp →</a></div>
+      <form class="contact-form reveal" id="contactForm"><label>Nome<input name="name" required placeholder="Seu nome"></label><label>E-mail<input name="email" type="email" required placeholder="voce@email.com"></label><label>Assunto<select name="subject"><option>Quero contratar um serviço</option><option>Tenho dúvida sobre um produto</option><option>Outro assunto</option></select></label><label>Mensagem<textarea name="message" required rows="4" placeholder="Como podemos ajudar?"></textarea></label><button class="btn primary" type="submit">Enviar mensagem</button><p class="form-status" id="formStatus"></p></form>
+    </section>
+
+    <section class="section feedback" id="avaliar">
+      <div class="feedback-copy reveal"><p class="eyebrow">SUA OPINIÃO IMPORTA</p><h2>Como foi sua experiência?</h2><p>Conte para nós o que achou do atendimento, serviço ou produto.</p></div>
+      <form class="feedback-form reveal" id="feedbackForm"><label>Seu nome<input name="name" required placeholder="Digite seu nome"></label><fieldset><legend>Sua avaliação</legend><div class="stars" id="feedbackStars"><button type="button" data-star="1" aria-label="1 estrela">★</button><button type="button" data-star="2" aria-label="2 estrelas">★</button><button type="button" data-star="3" aria-label="3 estrelas">★</button><button type="button" data-star="4" aria-label="4 estrelas">★</button><button type="button" data-star="5" aria-label="5 estrelas">★</button></div></fieldset><label>Feedback<textarea name="message" rows="4" required placeholder="Conte como foi sua experiência..."></textarea></label><button class="btn primary" type="submit">Enviar avaliação</button><p class="form-status" id="feedbackStatus"></p></form>
+    </section>
+  </main>
+
+  <footer><div class="brand"><img src="logo-sos-small.png" alt="S.O.S Filtros"><strong id="footerBrand">S.O.S Filtros</strong></div><p>Serviços e produtos para cuidar do que importa.</p><p>© <span id="year"></span> Todos os direitos reservados.</p></footer>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="cartDrawer" aria-label="Carrinho de compras"><div class="drawer-head"><div><p class="eyebrow">SEU PEDIDO</p><h2>Carrinho</h2></div><button class="icon-button" data-close="cart" aria-label="Fechar">×</button></div><div id="cartItems" class="cart-items"></div><div class="cart-footer"><div class="total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div><button class="btn primary full" id="checkoutButton">Finalizar pedido</button></div></aside>
+
+  <dialog id="checkoutDialog" class="checkout-dialog"><form method="dialog" class="dialog-head"><div><p class="eyebrow">FINALIZAR</p><h2>Dados do pedido</h2></div><button class="icon-button" aria-label="Fechar">×</button></form><form id="checkoutForm"><label>Nome completo<input name="name" required></label><label>WhatsApp<input name="phone" required placeholder="(00) 00000-0000"></label><label>E-mail<input type="email" name="email" required></label><label>Forma de pagamento<select name="payment"><option>PIX</option><option>Cartão de crédito</option><option>Combinar no atendimento</option></select></label><button class="btn primary full" type="submit">Confirmar pedido</button><small>Ambiente demonstrativo: nenhuma cobrança real será realizada.</small></form></dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
