@@ -1,23 +1,49 @@
-# S.O.S Filtros
+<div align="center">
+  <img src="logo-sos-small.png" alt="S.O.S Filtros" width="360">
 
-Site público responsivo com catálogo, carrinho, contato, avaliações e conclusão de pedidos pelo WhatsApp.
+  # S.O.S Filtros
 
-## Abrir no computador
+  Site moderno e responsivo para apresentação e venda de serviços e produtos.
 
-Abra `index.html` em um navegador moderno.
+  **[Acessar o site publicado](https://sos-filtros.vercel.app/)**
+</div>
 
-## Publicação
+## Sobre o projeto
 
-O projeto está publicado na Vercel. O processo de compilação envia somente os arquivos públicos definidos em `build.mjs`.
+O site da S.O.S Filtros foi criado para reunir catálogo, atendimento e pedidos em uma experiência simples para o cliente. A identidade visual utiliza preto, laranja, azul e branco, seguindo a marca fornecida.
 
-## Segurança e administração
+## Principais recursos
+
+- Catálogo com filtros para serviços e produtos.
+- Carrinho de compras com cálculo do total.
+- Finalização do pedido pelo WhatsApp.
+- Formulário de contato integrado ao WhatsApp.
+- Área para avaliação do atendimento com estrelas e feedback.
+- Layout escuro, moderno e adaptado para celular, tablet e computador.
+- Identidade visual personalizada com a logo S.O.S Filtros.
+
+## Segurança
 
 - A antiga senha demonstrativa e o painel administrativo local foram removidos.
-- O endereço administrativo não é publicado.
-- Cabeçalhos de segurança são configurados em `vercel.json`.
-- Um novo painel só deve ser ativado com autenticação feita no servidor, permissões de administrador e banco de dados compartilhado.
-- Nunca coloque senhas, chaves de pagamento ou credenciais dentro de arquivos HTML ou JavaScript públicos.
+- O painel administrativo não é publicado enquanto não houver autenticação segura no servidor.
+- Cabeçalhos de proteção são configurados pela Vercel.
+- Conteúdos dinâmicos do catálogo e carrinho recebem tratamento antes de aparecer na página.
+- Senhas e credenciais não ficam expostas nos arquivos públicos.
 
-## Situação atual
+## Tecnologias
 
-O checkout prepara o pedido e abre o WhatsApp; nenhuma cobrança é feita dentro do site. As avaliações ainda ficam somente no navegador do visitante. Pagamentos, avaliações compartilhadas e edição global do catálogo exigem um backend seguro.
+- HTML5
+- CSS3
+- JavaScript
+- Vercel
+- GitHub
+
+## Estado atual
+
+O checkout prepara o pedido e abre uma conversa no WhatsApp; nenhuma cobrança é realizada diretamente pelo site. As avaliações ainda ficam no navegador do visitante.
+
+As próximas etapas planejadas são autenticação segura para o proprietário, banco de dados compartilhado e integração de pagamentos.
+
+---
+
+Projeto desenvolvido para **S.O.S Filtros**.
