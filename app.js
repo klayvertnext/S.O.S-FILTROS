@@ -1,17 +1,272 @@
-const defaults={brand:'Nexo Prime',title:'Soluções que transformam ideias em resultados.',subtitle:'Serviços especializados e produtos selecionados para tornar seu próximo projeto mais simples, rápido e marcante.',whatsapp:'5511999999999',items:[{id:1,type:'servico',icon:'✦',name:'Identidade Visual',description:'Criação de uma marca completa, moderna e memorável para o seu negócio.',price:1290},{id:2,type:'servico',icon:'◈',name:'Site Profissional',description:'Site responsivo e estratégico para apresentar sua empresa e gerar oportunidades.',price:2490},{id:3,type:'servico',icon:'↗',name:'Consultoria Digital',description:'Diagnóstico e plano de ação para acelerar seus resultados no ambiente digital.',price:690},{id:4,type:'produto',icon:'▣',name:'Kit Social Media',description:'Templates editáveis para deixar suas redes sociais mais profissionais.',price:149.9},{id:5,type:'produto',icon:'◆',name:'Manual de Marca',description:'Guia prático para aplicar sua identidade de forma consistente.',price:89.9},{id:6,type:'produto',icon:'⚡',name:'Pack Produtividade',description:'Planilhas e ferramentas para organizar projetos, clientes e finanças.',price:59.9}],portfolio:[{name:'Aurora Studio',category:'Identidade Visual'},{name:'Vértice Consultoria',category:'Website & Estratégia'},{name:'Move Fitness',category:'Campanha Digital'}]};
-const storageKey='sosFiltrosData';let data=JSON.parse(localStorage.getItem(storageKey)||'null')||structuredClone(defaults);if(data.brand==='Nexo Prime'){data.brand='S.O.S Filtros';data.title='Soluções que cuidam do seu equipamento e da sua tranquilidade.';data.subtitle='Serviços especializados e produtos de qualidade para manter tudo funcionando com segurança, eficiência e confiança.'}data.customerCount??='1.500';data.ratingValue??='4.9';data.feedbacks??=[];let cart=[];let currentFilter='todos';
-const $=s=>document.querySelector(s);const escapeHtml=value=>String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));const money=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});const save=()=>localStorage.setItem(storageKey,JSON.stringify(data));
-function renderGeneral(){brandName.textContent=footerBrand.textContent=data.brand;heroTitle.textContent=data.title;heroSubtitle.textContent=data.subtitle;document.getElementById('customerCount').textContent=`+${data.customerCount}`;document.getElementById('ratingValue').textContent=data.ratingValue;whatsappLink.href=`https://wa.me/${data.whatsapp}?text=${encodeURIComponent('Olá! Gostaria de saber mais sobre seus serviços e produtos.')}`;document.title=`${data.brand} | Serviços e Produtos`}
-function renderCatalog(){const visible=data.items.filter(i=>currentFilter==='todos'||i.type===currentFilter);catalogGrid.innerHTML=visible.map(i=>{const name=escapeHtml(i.name),description=escapeHtml(i.description),type=i.type==='produto'?'produto':'servico',icon=escapeHtml(i.icon),image=typeof i.image==='string'&&/^data:image\/(png|jpeg|webp|gif);base64,/i.test(i.image)?i.image:'';return `<article class="catalog-card reveal"><div class="card-visual ${type}">${image?`<img class="item-image" src="${image}" alt="${name}">`:`<span class="card-icon">${icon}</span>`}<span class="type-tag">${type}</span></div><div class="card-content"><h3>${name}</h3><p>${description}</p><div class="card-bottom"><span class="price">${money(Number(i.price)||0)}</span><button class="add-button" data-add="${Number(i.id)}" aria-label="Adicionar ${name}">+</button></div></div></article>`}).join('')||'<p>Nenhum item nesta categoria.</p>'}
-function renderCart(){cartCount.textContent=cart.length;cartItems.innerHTML=cart.length?cart.map((i,n)=>`<div class="cart-item"><div><h4>${escapeHtml(i.name)}</h4><small>${i.type==='servico'?'Contratação':'Produto'} · ${money(Number(i.price)||0)}</small></div><button class="remove" data-remove="${n}">Remover</button></div>`).join(''):'<div class="cart-empty">Seu carrinho está vazio.<br>Explore o catálogo para começar.</div>';cartTotal.textContent=money(cart.reduce((s,i)=>s+(Number(i.price)||0),0))}
-function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),2500)}
-function openCart(){cartDrawer.classList.add('open');drawerBackdrop.classList.add('open')};function closeCart(){cartDrawer.classList.remove('open');drawerBackdrop.classList.remove('open')}
-document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');currentFilter=b.dataset.filter;renderCatalog()});
-catalogGrid.onclick=e=>{const id=Number(e.target.dataset.add);if(id){cart.push(data.items.find(i=>i.id===id));renderCart();toast('Item adicionado ao carrinho')}};
-cartItems.onclick=e=>{if(e.target.dataset.remove!==undefined){cart.splice(Number(e.target.dataset.remove),1);renderCart()}};
-document.getElementById('openCart').onclick=openCart;drawerBackdrop.onclick=closeCart;document.querySelector('[data-close="cart"]').onclick=closeCart;
-menuToggle.onclick=()=>{mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',mainNav.classList.contains('open'))};mainNav.querySelectorAll('a').forEach(a=>a.onclick=()=>mainNav.classList.remove('open'));
-contactForm.onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const text=`Olá! Sou ${f.get('name')}.%0A%0A${f.get('subject')}%0A${f.get('message')}%0A%0AE-mail: ${f.get('email')}`;formStatus.textContent='Abrindo uma conversa no WhatsApp…';window.open(`https://wa.me/${data.whatsapp}?text=${text}`,'_blank')};
-checkoutButton.onclick=()=>{if(!cart.length)return toast('Adicione um item antes de finalizar');closeCart();checkoutDialog.showModal()};checkoutForm.onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),summary=cart.map(i=>`• ${i.name} — ${money(i.price)}`).join('%0A'),total=money(cart.reduce((s,i)=>s+i.price,0));window.open(`https://wa.me/${data.whatsapp}?text=${encodeURIComponent(`Olá! Sou ${f.get('name')} e quero confirmar este pedido:`)}%0A%0A${summary}%0A%0ATotal: ${encodeURIComponent(total)}%0APagamento: ${f.get('payment')}`,'_blank');checkoutDialog.close();cart=[];renderCart();toast('Pedido preparado com sucesso!')};
-let selectedRating=0;document.querySelectorAll('#feedbackStars button').forEach(button=>button.onclick=()=>{selectedRating=Number(button.dataset.star);document.querySelectorAll('#feedbackStars button').forEach(star=>star.classList.toggle('selected',Number(star.dataset.star)<=selectedRating))});feedbackForm.onsubmit=e=>{e.preventDefault();if(!selectedRating){feedbackStatus.textContent='Escolha de 1 a 5 estrelas.';return}const form=new FormData(e.target);data.feedbacks.unshift({id:Date.now(),name:form.get('name'),rating:selectedRating,message:form.get('message'),date:new Date().toLocaleDateString('pt-BR')});save();e.target.reset();selectedRating=0;document.querySelectorAll('#feedbackStars button').forEach(star=>star.classList.remove('selected'));feedbackStatus.textContent='Obrigado! Sua avaliação foi enviada.'};
-const toastEl=$('#toast');year.textContent=new Date().getFullYear();save();renderGeneral();renderCatalog();renderCart();
+'use strict';
+
+const defaults = {
+  brand: 'S.O.S Filtros',
+  title: 'Pureza e confiança em cada gota.',
+  subtitle: 'Serviços rápidos e produtos selecionados para manter seu sistema de filtragem eficiente, seguro e confiável.',
+  whatsapp: '5511999999999',
+  customerCount: '1.500',
+  ratingValue: '4.9',
+  items: [
+    { id: 1, type: 'servico', icon: '◆', name: 'Serviço cadastrado pelo administrador', description: 'Consulte a disponibilidade e solicite atendimento especializado.', price: 0 },
+    { id: 2, type: 'produto', icon: '◎', name: 'Produto cadastrado pelo administrador', description: 'Consulte os produtos disponíveis e fale com nossa equipe.', price: 0 }
+  ]
+};
+
+let data = { ...defaults, items: defaults.items.map((item) => ({ ...item })) };
+let cart = [];
+let currentFilter = 'todos';
+let selectedRating = 0;
+
+const $ = (selector) => document.querySelector(selector);
+const escapeHtml = (value) => String(value ?? '').replace(/[&<>'"]/g, (character) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+})[character]);
+const money = (value) => Number(value || 0) > 0
+  ? Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+  : 'Sob consulta';
+
+const elements = {
+  brandName: $('#brandName'),
+  footerBrand: $('#footerBrand'),
+  heroTitle: $('#heroTitle'),
+  heroSubtitle: $('#heroSubtitle'),
+  customerCount: $('#customerCount'),
+  ratingValue: $('#ratingValue'),
+  whatsappLink: $('#whatsappLink'),
+  catalogGrid: $('#catalogGrid'),
+  cartCount: $('#cartCount'),
+  cartItems: $('#cartItems'),
+  cartTotal: $('#cartTotal'),
+  cartDrawer: $('#cartDrawer'),
+  drawerBackdrop: $('#drawerBackdrop'),
+  checkoutDialog: $('#checkoutDialog'),
+  toast: $('#toast')
+};
+
+function whatsappUrl(message) {
+  const url = new URL(`https://wa.me/${data.whatsapp}`);
+  url.searchParams.set('text', message);
+  return url.toString();
+}
+
+function renderHeroTitle(value) {
+  const words = String(value || '').trim().split(/\s+/).filter(Boolean);
+  const accentStart = Math.max(1, words.length - 3);
+  const regularText = words.slice(0, accentStart).join(' ');
+  const accentText = words.slice(accentStart).join(' ');
+  const accent = document.createElement('em');
+  accent.textContent = accentText;
+  elements.heroTitle.replaceChildren(document.createTextNode(`${regularText} `), accent);
+}
+
+function renderGeneral() {
+  elements.brandName.textContent = data.brand;
+  elements.footerBrand.textContent = data.brand;
+  renderHeroTitle(data.title);
+  elements.heroSubtitle.textContent = data.subtitle;
+  elements.customerCount.textContent = `+${data.customerCount}`;
+  elements.ratingValue.textContent = data.ratingValue;
+  elements.whatsappLink.href = whatsappUrl('Olá! Gostaria de solicitar atendimento da S.O.S Filtros.');
+  document.title = `${data.brand} | Manutenção, Serviços e Produtos`;
+}
+
+function renderCatalog() {
+  const visibleItems = data.items.filter((item) => currentFilter === 'todos' || item.type === currentFilter);
+  elements.catalogGrid.innerHTML = visibleItems.map((item) => {
+    const name = escapeHtml(item.name);
+    const description = escapeHtml(item.description);
+    const type = item.type === 'produto' ? 'produto' : 'servico';
+    const icon = escapeHtml(item.icon || '◆');
+    const imageUrl = item.image_path ? window.SOS_API.getPublicImageUrl(item.image_path) : '';
+    const visual = imageUrl
+      ? `<img class="item-image" src="${escapeHtml(imageUrl)}" alt="${name}" loading="lazy">`
+      : `<span class="card-icon">${icon}</span>`;
+    return `<article class="catalog-card reveal">
+      <div class="card-visual ${type}">${visual}<span class="type-tag">${type}</span></div>
+      <div class="card-content"><h3>${name}</h3><p>${description}</p>
+        <div class="card-bottom"><span class="price">${money(item.price)}</span>
+          <button class="add-button" data-add="${Number(item.id)}" aria-label="Adicionar ${name}">+</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('') || '<p>Nenhum item nesta categoria.</p>';
+  document.dispatchEvent(new CustomEvent('catalog:rendered'));
+}
+
+function renderCart() {
+  elements.cartCount.textContent = String(cart.length);
+  elements.cartItems.innerHTML = cart.length
+    ? cart.map((item, index) => `<div class="cart-item"><div><h4>${escapeHtml(item.name)}</h4><small>${item.type === 'servico' ? 'Contratação' : 'Produto'} · ${money(item.price)}</small></div><button class="remove" data-remove="${index}">Remover</button></div>`).join('')
+    : '<div class="cart-empty">Seu carrinho está vazio.<br>Explore o catálogo para começar.</div>';
+  elements.cartTotal.textContent = money(cart.reduce((total, item) => total + Number(item.price || 0), 0));
+}
+
+function toast(message) {
+  elements.toast.textContent = message;
+  elements.toast.classList.add('show');
+  setTimeout(() => elements.toast.classList.remove('show'), 2500);
+}
+
+function openCart() {
+  elements.cartDrawer.classList.add('open');
+  elements.drawerBackdrop.classList.add('open');
+  elements.cartDrawer.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('drawer-open');
+  $('[data-close="cart"]').focus();
+}
+
+function closeCart() {
+  elements.cartDrawer.classList.remove('open');
+  elements.drawerBackdrop.classList.remove('open');
+  elements.cartDrawer.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('drawer-open');
+}
+
+async function loadPublicContent() {
+  try {
+    const { settings, items } = await window.SOS_API.getPublicContent();
+    if (settings) {
+      data = {
+        ...data,
+        brand: settings.brand,
+        title: settings.hero_title,
+        subtitle: settings.hero_subtitle,
+        whatsapp: settings.whatsapp,
+        customerCount: settings.customer_count,
+        ratingValue: Number(settings.rating_value).toFixed(1)
+      };
+    }
+    if (Array.isArray(items) && items.length) {
+      data.items = items.map((item) => ({ ...item, price: Number(item.price) }));
+    }
+    renderGeneral();
+    renderCatalog();
+  } catch {
+    toast('O catálogo será atualizado quando a conexão voltar.');
+  }
+}
+
+document.querySelectorAll('.filters button').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.filters button').forEach((item) => item.classList.remove('active'));
+    button.classList.add('active');
+    currentFilter = button.dataset.filter;
+    renderCatalog();
+  });
+});
+
+elements.catalogGrid.addEventListener('click', (event) => {
+  const addButton = event.target.closest('[data-add]');
+  if (!addButton) return;
+  const item = data.items.find((entry) => Number(entry.id) === Number(addButton.dataset.add));
+  if (!item) return;
+  cart.push({ ...item });
+  renderCart();
+  toast('Item adicionado ao carrinho');
+});
+
+elements.cartItems.addEventListener('click', (event) => {
+  const removeButton = event.target.closest('[data-remove]');
+  if (!removeButton) return;
+  cart.splice(Number(removeButton.dataset.remove), 1);
+  renderCart();
+});
+
+$('#openCart').addEventListener('click', openCart);
+elements.drawerBackdrop.addEventListener('click', closeCart);
+$('[data-close="cart"]').addEventListener('click', closeCart);
+
+$('#menuToggle').addEventListener('click', () => {
+  const navigation = $('#mainNav');
+  navigation.classList.toggle('open');
+  const isOpen = navigation.classList.contains('open');
+  $('#menuToggle').setAttribute('aria-expanded', isOpen);
+  $('#menuToggle').setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+});
+document.querySelectorAll('#mainNav a').forEach((link) => link.addEventListener('click', () => {
+  $('#mainNav').classList.remove('open');
+  $('#menuToggle').setAttribute('aria-expanded', 'false');
+  $('#menuToggle').setAttribute('aria-label', 'Abrir menu');
+}));
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  if (elements.cartDrawer.classList.contains('open')) {
+    closeCart();
+    $('#openCart').focus();
+  }
+  $('#mainNav').classList.remove('open');
+  $('#menuToggle').setAttribute('aria-expanded', 'false');
+  $('#menuToggle').setAttribute('aria-label', 'Abrir menu');
+});
+
+$('#contactForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+  const message = `Olá! Sou ${form.get('name')}.\n\n${form.get('subject')}\n${form.get('message')}\n\nE-mail: ${form.get('email')}`;
+  $('#formStatus').textContent = 'Abrindo uma conversa no WhatsApp…';
+  window.open(whatsappUrl(message), '_blank', 'noopener');
+});
+
+$('#checkoutButton').addEventListener('click', () => {
+  if (!cart.length) return toast('Adicione um item antes de finalizar');
+  closeCart();
+  elements.checkoutDialog.showModal();
+});
+
+$('#checkoutForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+  const summary = cart.map((item) => `• ${item.name} — ${money(item.price)}`).join('\n');
+  const total = money(cart.reduce((sum, item) => sum + Number(item.price || 0), 0));
+  const message = `Olá! Sou ${form.get('name')} e quero confirmar este pedido:\n\n${summary}\n\nTotal: ${total}\nPagamento: ${form.get('payment')}`;
+  window.open(whatsappUrl(message), '_blank', 'noopener');
+  elements.checkoutDialog.close();
+  cart = [];
+  renderCart();
+  toast('Pedido preparado com sucesso!');
+});
+
+document.querySelectorAll('#feedbackStars button').forEach((button) => {
+  button.addEventListener('click', () => {
+    selectedRating = Number(button.dataset.star);
+    document.querySelectorAll('#feedbackStars button').forEach((star) => {
+      star.classList.toggle('selected', Number(star.dataset.star) <= selectedRating);
+    });
+  });
+});
+
+$('#feedbackForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const status = $('#feedbackStatus');
+  if (!selectedRating) {
+    status.textContent = 'Escolha de 1 a 5 estrelas.';
+    return;
+  }
+  const button = event.currentTarget.querySelector('[type="submit"]');
+  const form = new FormData(event.currentTarget);
+  button.disabled = true;
+  status.textContent = 'Enviando…';
+  try {
+    await window.SOS_API.submitFeedback({
+      name: form.get('name'),
+      rating: selectedRating,
+      message: form.get('message')
+    });
+    event.currentTarget.reset();
+    selectedRating = 0;
+    document.querySelectorAll('#feedbackStars button').forEach((star) => star.classList.remove('selected'));
+    status.textContent = 'Obrigado! Sua avaliação foi enviada para análise.';
+  } catch {
+    status.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
+  } finally {
+    button.disabled = false;
+  }
+});
+
+$('#year').textContent = String(new Date().getFullYear());
+renderGeneral();
+renderCatalog();
+renderCart();
+loadPublicContent();
