@@ -3,47 +3,60 @@
 
   # S.O.S Filtros
 
-  Site moderno e responsivo para apresentação e venda de serviços e produtos.
-
-  **[Acessar o site publicado](https://sos-filtros.vercel.app/)**
+  Site responsivo com catálogo, carrinho, avaliações e painel administrativo protegido.
 </div>
 
-## Sobre o projeto
+## Recursos
 
-O site da S.O.S Filtros foi criado para reunir catálogo, atendimento e pedidos em uma experiência simples para o cliente. A identidade visual utiliza preto, laranja, azul e branco, seguindo a marca fornecida.
-
-## Principais recursos
-
-- Catálogo com filtros para serviços e produtos.
-- Carrinho de compras com cálculo do total.
-- Finalização do pedido pelo WhatsApp.
-- Formulário de contato integrado ao WhatsApp.
-- Área para avaliação do atendimento com estrelas e feedback.
-- Layout escuro, moderno e adaptado para celular, tablet e computador.
-- Identidade visual personalizada com a logo S.O.S Filtros.
+- Catálogo de serviços e produtos com filtros e carrinho.
+- Finalização do pedido e contato pelo WhatsApp.
+- Avaliações de clientes armazenadas no Supabase.
+- Painel separado em `/site/`, sem link na página pública.
+- Edição de textos, WhatsApp, indicadores, serviços, produtos, preços e imagens.
+- Moderação de avaliações recebidas.
+- Layout escuro adaptado para celular, tablet e computador.
 
 ## Segurança
 
-- A antiga senha demonstrativa e o painel administrativo local foram removidos.
-- O painel administrativo não é publicado enquanto não houver autenticação segura no servidor.
-- Cabeçalhos de proteção são configurados pela Vercel.
-- Conteúdos dinâmicos do catálogo e carrinho recebem tratamento antes de aparecer na página.
-- Senhas e credenciais não ficam expostas nos arquivos públicos.
+- Autenticação por e-mail e senha usando Supabase Auth.
+- Cadastro público e recuperação de senha desativados; novas contas são criadas somente pelo proprietário no painel do Supabase.
+- Sessão administrativa mantida somente durante a aba aberta.
+- Row Level Security ativado em todas as tabelas acessíveis.
+- Visitantes só podem ler configurações públicas e itens ativos.
+- Avaliações não podem ser lidas por visitantes.
+- Imagens aceitas apenas em JPG, PNG ou WEBP, com limite de 5 MB.
+- Nenhuma chave de servidor ou senha é armazenada nos arquivos do site.
+- Cabeçalhos CSP, `nosniff`, proteção contra frames e bloqueio de indexação do painel.
 
-## Tecnologias
+## Estrutura
 
-- HTML5
-- CSS3
-- JavaScript
-- Vercel
-- GitHub
+- `index.html`, `styles.css`, `sos-theme.css`, `app.js`: site público.
+- `site/index.html`, `painel.js`, `admin.css`: painel administrativo.
+- `supabase-api.js`: conexão do navegador com Auth, banco e armazenamento.
+- `supabase/schema.sql`: tabelas, regras de acesso, dados iniciais e bucket de imagens.
+- `build.mjs`: gera a pasta `public` usada pela Vercel.
+
+## Executar
+
+O projeto requer Node.js para gerar a pasta pública:
+
+```bash
+npm run build
+```
+
+Depois, sirva a pasta `public` com um servidor estático. Na Vercel, configure o comando de build como `npm run build` e a pasta de saída como `public`.
+
+## Cadastrar um novo cliente
+
+1. No Supabase, abra **Authentication → Users**.
+2. Selecione **Add user → Create new user**.
+3. Informe o e-mail e a senha escolhidos pelo proprietário e mantenha **Auto confirm user** marcado.
+4. Adicione o mesmo e-mail à tabela privada `private.admin_emails` para liberar o painel.
+
+O site não oferece cadastro nem recuperação de senha. Excluir um usuário ou retirar seu e-mail da lista privada revoga o acesso administrativo.
 
 ## Estado atual
 
-O checkout prepara o pedido e abre uma conversa no WhatsApp; nenhuma cobrança é realizada diretamente pelo site. As avaliações ainda ficam no navegador do visitante.
+O domínio principal está em pausa temporária enquanto a identidade visual aguarda registro. O banco e o painel podem ser preparados sem reativar a página pública.
 
-As próximas etapas planejadas são autenticação segura para o proprietário, banco de dados compartilhado e integração de pagamentos.
-
----
-
-Projeto desenvolvido para **S.O.S Filtros**.
+O checkout prepara o pedido pelo WhatsApp; nenhuma cobrança é feita diretamente pelo site nesta versão.
