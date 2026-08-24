@@ -205,8 +205,8 @@ insert into public.site_settings (
 values (
   1,
   'S.O.S Filtros',
-  'Soluções que cuidam do seu equipamento e da sua tranquilidade.',
-  'Serviços especializados e produtos de qualidade para manter tudo funcionando com segurança, eficiência e confiança.',
+  'Água pura, equipamento protegido e atendimento de confiança.',
+  'Manutenção especializada, troca de refis e produtos selecionados para manter seu filtro funcionando com segurança e eficiência.',
   '5511999999999',
   '1.500',
   4.9
@@ -217,12 +217,12 @@ insert into public.catalog_items (type, icon, name, description, price, position
 select seed.type, seed.icon, seed.name, seed.description, seed.price, seed.position
 from (
   values
-    ('servico', '✦', 'Identidade Visual', 'Criação de uma marca completa, moderna e memorável para o seu negócio.', 1290.00, 10),
-    ('servico', '◈', 'Site Profissional', 'Site responsivo e estratégico para apresentar sua empresa e gerar oportunidades.', 2490.00, 20),
-    ('servico', '↗', 'Consultoria Digital', 'Diagnóstico e plano de ação para acelerar seus resultados no ambiente digital.', 690.00, 30),
-    ('produto', '▣', 'Kit Social Media', 'Templates editáveis para deixar suas redes sociais mais profissionais.', 149.90, 40),
-    ('produto', '◆', 'Manual de Marca', 'Guia prático para aplicar sua identidade de forma consistente.', 89.90, 50),
-    ('produto', '⚡', 'Pack Produtividade', 'Planilhas e ferramentas para organizar projetos, clientes e finanças.', 59.90, 60)
+    ('servico', '◈', 'Troca do elemento filtrante', 'Substituição do refil com verificação de encaixes, vedação e funcionamento do equipamento.', 0.00, 10),
+    ('servico', '✦', 'Higienização completa', 'Limpeza técnica dos componentes para preservar a qualidade da água e o desempenho do filtro.', 0.00, 20),
+    ('servico', '◎', 'Manutenção preventiva', 'Inspeção do sistema, correção de vazamentos e avaliação dos componentes antes que ocorram falhas.', 0.00, 30),
+    ('produto', '◆', 'Refil para filtro de água', 'Modelos selecionados conforme a marca e a compatibilidade do equipamento do cliente.', 0.00, 40),
+    ('produto', '⬡', 'Kit de vedação', 'Conjunto de anéis e componentes para auxiliar na vedação e prevenir vazamentos.', 0.00, 50),
+    ('produto', '↗', 'Torneira para filtro', 'Opções de reposição para diferentes instalações, com disponibilidade sob consulta.', 0.00, 60)
 ) as seed(type, icon, name, description, price, position)
 where not exists (select 1 from public.catalog_items);
 
