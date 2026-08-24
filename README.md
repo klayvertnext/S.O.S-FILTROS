@@ -3,8 +3,14 @@
 
   # S.O.S Filtros
 
-  Site responsivo com catálogo, carrinho, avaliações e painel administrativo protegido.
+  Plataforma responsiva para apresentar, contratar e administrar serviços e produtos para filtros de água.
+
+  **[Ver site publicado](https://sos-filtros.vercel.app/)** · **[Acessar painel administrativo](https://sos-filtros.vercel.app/site/)**
 </div>
+
+## Sobre o projeto
+
+A S.O.S Filtros reúne apresentação institucional, catálogo, pedidos e atendimento em uma experiência digital moderna. O projeto segue a identidade visual da marca, com predominância de preto, laranja e azul, e inclui um painel protegido para que o proprietário atualize o conteúdo sem editar código.
 
 ## Recursos
 
@@ -15,6 +21,14 @@
 - Edição de textos, WhatsApp, indicadores, serviços, produtos, preços e imagens.
 - Moderação de avaliações recebidas.
 - Layout escuro adaptado para celular, tablet e computador.
+- Metadados para compartilhamento profissional em redes sociais.
+
+## Tecnologias
+
+- HTML5, CSS3 e JavaScript.
+- Supabase Auth, Database e Storage.
+- Vercel para publicação e entrega do site.
+- GitHub para versionamento e apresentação do código.
 
 ## Segurança
 
@@ -57,6 +71,10 @@ O site não oferece cadastro nem recuperação de senha. Excluir um usuário ou 
 
 ## Estado atual
 
-O domínio principal está em pausa temporária enquanto a identidade visual aguarda registro. O banco e o painel podem ser preparados sem reativar a página pública.
+O site público e o painel administrativo estão online. O catálogo demonstra serviços e produtos da área de filtros com valores sob consulta; o proprietário pode substituir textos, preços e imagens diretamente pelo painel.
 
 O checkout prepara o pedido pelo WhatsApp; nenhuma cobrança é feita diretamente pelo site nesta versão.
+
+---
+
+Projeto desenvolvido para **S.O.S Filtros**.

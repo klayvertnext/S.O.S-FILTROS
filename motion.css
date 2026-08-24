@@ -99,7 +99,7 @@
 
 @media(max-width:560px){
   .hero-copy>*{animation-duration:.68s}.hero-ambient{opacity:.52}.ambient-blue{width:250px;height:250px;right:-20%;top:42%}.ambient-orange{width:220px;height:220px}
-  .hero-status{bottom:-2%;padding:7px 10px;letter-spacing:.08em}.stage-halo{inset:28%}.card-float::before{display:none}
+  .hero-status{bottom:-2%;padding:7px 10px;letter-spacing:.08em}.stage-halo{inset:28%}.card-float{animation:none!important;transform:none!important}.card-float::before{display:none}
   .service-band::after{animation-duration:12s}
 }
 

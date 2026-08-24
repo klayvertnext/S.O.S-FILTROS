@@ -2,14 +2,18 @@
 
 const defaults = {
   brand: 'S.O.S Filtros',
-  title: 'Pureza e confiança em cada gota.',
-  subtitle: 'Serviços rápidos e produtos selecionados para manter seu sistema de filtragem eficiente, seguro e confiável.',
+  title: 'Água pura, equipamento protegido e atendimento de confiança.',
+  subtitle: 'Manutenção especializada, troca de refis e produtos selecionados para manter seu filtro funcionando com segurança e eficiência.',
   whatsapp: '5511999999999',
   customerCount: '1.500',
   ratingValue: '4.9',
   items: [
-    { id: 1, type: 'servico', icon: '◆', name: 'Serviço cadastrado pelo administrador', description: 'Consulte a disponibilidade e solicite atendimento especializado.', price: 0 },
-    { id: 2, type: 'produto', icon: '◎', name: 'Produto cadastrado pelo administrador', description: 'Consulte os produtos disponíveis e fale com nossa equipe.', price: 0 }
+    { id: 1, type: 'servico', icon: '◈', name: 'Troca do elemento filtrante', description: 'Substituição do refil com verificação de encaixes, vedação e funcionamento do equipamento.', price: 0 },
+    { id: 2, type: 'servico', icon: '✦', name: 'Higienização completa', description: 'Limpeza técnica dos componentes para preservar a qualidade da água e o desempenho do filtro.', price: 0 },
+    { id: 3, type: 'servico', icon: '◎', name: 'Manutenção preventiva', description: 'Inspeção do sistema, correção de vazamentos e avaliação dos componentes antes que ocorram falhas.', price: 0 },
+    { id: 4, type: 'produto', icon: '◆', name: 'Refil para filtro de água', description: 'Modelos selecionados conforme a marca e a compatibilidade do equipamento do cliente.', price: 0 },
+    { id: 5, type: 'produto', icon: '⬡', name: 'Kit de vedação', description: 'Conjunto de anéis e componentes para auxiliar na vedação e prevenir vazamentos.', price: 0 },
+    { id: 6, type: 'produto', icon: '↗', name: 'Torneira para filtro', description: 'Opções de reposição para diferentes instalações, com disponibilidade sob consulta.', price: 0 }
   ]
 };
 

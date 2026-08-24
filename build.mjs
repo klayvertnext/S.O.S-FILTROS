@@ -14,6 +14,7 @@ const publicFiles = [
   'painel.js',
   'logo-sos-small.png',
   'logo-sos-icone.png',
+  'logo-sos-web.png',
   'site/index.html'
 ];
 
